@@ -3,9 +3,8 @@ require 'aws-sdk'
 
 desc 'upload cookbooks to nifty cloud storage'
 task :upload do
-    if !ENV['S3_BUCKET']
-      abort 'Please set S3_BUCKET env value.'
-    end
+    ENV['S3_BUCKET'] ||= 'some'
+    ENV['S3_KEY'] ||= 'cookbooks.tgz'
 
     dir = File.dirname(__FILE__)
     system "cd #{dir}/../; tar czvf /tmp/cookbooks.tgz cookbooks"
