@@ -26,7 +26,7 @@
 
 require 'chef/util/file_edit'
 
-fqdn = node[:set_fqdn]
+fqdn = `/usr/sbin/vmtoolsd --cmd 'info-get guestinfo.hostname'`.chomp
 if fqdn
   fqdn =~ /^([^.]+)/
   hostname = $1
