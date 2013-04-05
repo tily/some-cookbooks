@@ -24,5 +24,5 @@ task :upload do
 
     system "rm /tmp/cookbooks.tgz"
 
-    puts "installer was uploaded to: #{obj.url_for(:read).to_s.gsub(/\?(.+)$/, '')}"
+    puts "cookbooks url: #{obj.url_for(:read).to_s.gsub(/\?(.+)$/, '')}"
 end
