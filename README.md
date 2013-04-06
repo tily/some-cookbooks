@@ -16,7 +16,7 @@
 ## TODO
 
  * fix gitlab cookbook
- * add s3fs
+ * fix s3fs
 
 ## 作者
 
