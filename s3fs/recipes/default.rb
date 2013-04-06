@@ -1,4 +1,4 @@
-%w{ build-essential pkg-config libcurl4-openssl-dev libfuse-dev fuse-utils libfuse2 libxml2-dev mime-support }.each do |pkg|
+node[:s3fs][:packages].each do |pkg|
   package pkg
 end
 
