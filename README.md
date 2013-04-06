@@ -13,6 +13,11 @@
 	yum install -y gcc libxml2-devel libxslt-devel git
 	/opt/chef/embedded/bin/bundle
 
+## TODO
+
+ * fix gitlab cookbook
+ * add s3fs
+
 ## 作者
 
  * tily <tidnlyam@gmail.com>
