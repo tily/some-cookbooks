@@ -15,7 +15,7 @@ bash "install fuse" do
   cd fuse-#{ node[:fuse][:version] }
   ./configure --prefix=/usr
   make
-  sudo make install
+  make install
 
   EOH
 
@@ -34,7 +34,7 @@ bash "install s3fs" do
   cd s3fs-#{ node[:s3fs][:version] }
   ./configure --prefix=/usr
   make
-  sudo make install
+  make install
   EOH
 
   not_if { File.exists?("/usr/bin/s3fs") }
