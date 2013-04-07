@@ -22,6 +22,20 @@ bash "install fuse" do
   not_if { File.exists?("/usr/bin/fusermount") }
 end
 
+if node["platform"] == "centos"
+  template "/etc/ld.so.conf.d/s3fs.conf" do
+    source "s3fs.conf.erb"
+    owner "root"
+    group "root"
+    mode 0644
+  end
+
+  bash "ldconfig" do
+    code "ldconfig"
+    only_if { `ldconfig -v | grep fuse | wc -l` == 0 }
+  end
+end
+
 remote_file "/tmp/s3fs-#{ node[:s3fs][:version] }.tar.gz" do
   source "http://s3fs.googlecode.com/files/s3fs-#{ node[:s3fs][:version] }.tar.gz"
   mode 0644
