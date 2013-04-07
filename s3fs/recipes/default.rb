@@ -22,7 +22,7 @@ bash "install fuse" do
   not_if { File.exists?("/usr/bin/fusermount") }
 end
 
-if node["platform"] == "centos"
+if %w{centos redhat}.include?(node["platform"])
   template "/etc/ld.so.conf.d/s3fs.conf" do
     source "s3fs.conf.erb"
     owner "root"
@@ -44,6 +44,7 @@ end
 bash "install s3fs" do
   cwd "/tmp"
   code <<-EOH
+  export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/lib64/pkgconfig
   tar zxvf s3fs-#{ node[:s3fs][:version] }.tar.gz
   cd s3fs-#{ node[:s3fs][:version] }
   ./configure --prefix=/usr

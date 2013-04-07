@@ -1,5 +1,5 @@
 case node["platform"]
-when "centos"
+when "centos", "redhat"
   default["s3fs"]["packages"] = %w{gcc libstdc++-devel gcc-c++ curl-devel libxml2-devel openssl-devel mailcap make}
   case node["platform_version"].to_i
   when 6
