@@ -1,9 +1,7 @@
 case node["platform"]
 when "centos"
-  default["s3fs"]["packages"] = %w{gcc libstdc++-devel gcc-c++ curl-devel libxml2-devel openssl-devel mailcap make svn}
+  default["s3fs"]["packages"] = %w{gcc libstdc++-devel gcc-c++ curl-devel libxml2-devel openssl-devel mailcap make}
   case node["platform_version"].to_i
-  when 5
-    default["fuse"]["version"] = "2.8.7"
   when 6
     default["fuse"]["version"] = "2.9.1"
   end
