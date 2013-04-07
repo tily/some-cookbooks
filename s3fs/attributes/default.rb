@@ -1,12 +1,13 @@
 case node["platform"]
 when "centos"
   default["s3fs"]["packages"] = %w{gcc libstdc++-devel gcc-c++ curl-devel libxml2-devel openssl-devel mailcap make svn}
-  if node["platform_version"].to_f >= 6.0
-    default["fuse"]["version"] = "2.9.1"
-  else
+  case node["platform_version"].to_i
+  when 5
     default["fuse"]["version"] = "2.8.7"
+  when 6
+    default["fuse"]["version"] = "2.9.1"
   end
-else
+when "debian", "ubuntu"
   default["s3fs"]["packages"] = %w{build-essential pkg-config libcurl4-openssl-dev libfuse-dev fuse-utils libfuse2 libxml2-dev mime-support}
   default["fuse"]["version"] = "2.8.7"
 end
