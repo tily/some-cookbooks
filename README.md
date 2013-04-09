@@ -16,7 +16,7 @@
 ## TODO
 
  * fix gitlab cookbook
- * fix s3fs
+ * fix s3fs (not works on https mount)
 
 ## 作者
 
