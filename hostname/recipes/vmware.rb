@@ -26,44 +26,5 @@
 
 require 'chef/util/file_edit'
 
-fqdn = node[:set_fqdn]
-if fqdn
-  fqdn =~ /^([^.]+)/
-  hostname = $1
-  changed = false
-
-  file '/etc/hostname' do
-    content "#{hostname}\n"
-    mode "0644"
-  end
-
-  if node[:hostname] != hostname
-    execute "hostname #{hostname}"
-    changed=true
-  end
-
-  if node[:fqdn] != fqdn
-    hosts_line = "#{node[:ipaddress]} #{fqdn} #{hostname}"
-    ruby_block 'put_fqdn_in_hosts' do
-      block do
-        hosts = Chef::Util::FileEdit.new("/etc/hosts")
-        if hosts.search_line(/^#{node[:ipaddress]}/)
-          hosts.search_file_replace_line(/^#{node[:ipaddress]}/, hosts_line)
-        else
-          hosts.append_line(hosts_line)
-        end
-        hosts.write_file
-      end
-      only_if { File.read('/etc/hosts').lines.grep(/^#{hosts_line}/).empty? }
-    end
-    #changed to make compatible with chef 11
-    node.normal[:fqdn] = fqdn
-    changed = true
-  end
-
-  ohai "reload" if changed
-else
-  log "Please set the set_fqdn attribute to desired hostname" do
-    level :warn
-  end
-end
+node[:set_fqdn] = `/usr/sbin/vmtoolsd --cmd 'info-get guestinfo.hostname'`.chomp
+include_recipe 'hostname::default'
