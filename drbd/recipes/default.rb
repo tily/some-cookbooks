@@ -20,8 +20,14 @@
 #prime the search to avoid 2 masters
 node.save
 
-package "drbd8-utils" do
-  action :install
+if %w{redhat centos fedora}.include?(node["platform"])
+  include_recipe "yum::elrepo"        
+end
+
+node["drbd"]["packages"].each do |pkg|
+  package pkg do
+    action :install
+  end
 end
 
 service "drbd" do
