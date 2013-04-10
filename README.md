@@ -15,8 +15,19 @@
 
 ## TODO
 
- * fix gitlab cookbook
- * fix s3fs (not works on https mount)
+ * cookbooks
+   * redmine
+     * deploy_revision の before_migrate で明示的に current/public へリンクを貼るようにする
+   * haproxy
+     * some::haproxy として chef-solo でも動き http/https 以外にも対応しているものを作る
+   * gitlab
+     * unicorn のタイムアウトを外出しにできるようにする
+   * s3
+     * https で動かないのを直す
+   * iptables
+   * openldap
+ * misc
+   * use Berksfile
 
 ## 作者
 
