@@ -9,7 +9,7 @@ task :upload do
     secret_access_key = ENV['AWS_SECRET_ACCESS_KEY'] || HighLine.new.ask('secret access key: ')
 
     dir = File.dirname(__FILE__)
-    system "cd #{dir}/../; tar czvf /tmp/cookbooks.tgz cookbooks"
+    system "cd #{dir}/../; tar czf /tmp/cookbooks.tgz cookbooks"
 
     s3 = AWS::S3.new(
       :access_key_id => access_key_id,
