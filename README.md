@@ -26,8 +26,11 @@
      * https で動かないのを直す
    * iptables
    * openldap
+ * rake upload
+   * .git を含まないようにする
  * misc
    * use Berksfile
+   * https://gist.github.com/ysaotome/2048331
 
 ## 作者
 
