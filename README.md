@@ -16,8 +16,19 @@
 ## TODO
 
  * cookbooks
+   * hostsfile
+     * うまく動いていないところがあるっぽい
+   * drbd
+     * 次のノードが立ち上がってくるまで起動スクリプトが終了しない
+       * 自動で yes を押すようなオプションがないか…
+     * node["hoge"] = "" とやっている箇所がありエラーとなる
    * redmine
      * deploy_revision の before_migrate で明示的に current/public へリンクを貼るようにする
+     * bundle install がうまく動作していない (異常終了していないけど、DB アダプタが入らない？)
+       * db:migrate 時に mysql2 が認識されてない？
+     * /opt/redmine/current の中身が log ディレクトリ等のスケルトンだけになってしまう
+       * /var/www/redmine/public から /opt/redmine/current/public へのリンクが張られない
+       * deploy_revision-before-migrate で手動でリンクを貼った
    * haproxy
      * some::haproxy として chef-solo でも動き http/https 以外にも対応しているものを作る
    * gitlab
@@ -26,11 +37,16 @@
      * https で動かないのを直す
    * iptables
    * openldap
+   * chef-solo-search
+     * solo-search でインポートされてしまった
+   * mysql
+     * ユーザー追加の SQL が実行されない
  * rake upload
    * .git を含まないようにする
  * misc
    * use Berksfile
    * https://gist.github.com/ysaotome/2048331
+   * cookbooks のバージョンを固定する
 
 ## 作者
 
