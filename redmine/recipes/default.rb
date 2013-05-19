@@ -27,7 +27,7 @@ end
 
 include_recipe "apache2"
 include_recipe "apache2::mod_rewrite"
-include_recipe "passenger_apache2::mod_rails"
+include_recipe "passenger_apache2"
 include_recipe "mysql::server"
 include_recipe "git"
 
@@ -109,7 +109,11 @@ deploy_revision node['redmine']['deploy_to'] do
       )
     end
 
-    execute 'bundle install --without development test' do
+    link "#{release_path}/config/database.yml" do
+      to "#{node['redmine']['deploy_to']}/shared/config/database.yml"
+    end
+
+    execute 'bundle install --without development test postgresql' do
       cwd release_path
     end
 
