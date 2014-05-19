@@ -6,3 +6,5 @@ node.default[:nginx_ext][:salt] = 'salt'
 node.default[:private_lan] = {}
 node.default[:private_lan][:mask] = nil
 node.default[:private_lan][:ip] = {}
+
+node.default[:sleep] = 0
