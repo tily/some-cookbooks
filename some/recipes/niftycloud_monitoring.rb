@@ -11,13 +11,7 @@ end
 
 snmpd_version = `dpkg -l snmpd`.chomp
 
-template 'snmpd.conf' do
-  case node[:platform]
-  when 'centos','redhat','fedora','amazon'
-    path '/etc/snmp/snmpd.conf'
-  when 'debian','ubuntu'
-    path '/etc/snmpd/snmpd.conf'
-  end
+template '/etc/snmp/snmpd.conf' do
   source 'snmpd.conf.erb'
   action :create
   notifies :restart, 'service[snmpd]', :delayed
