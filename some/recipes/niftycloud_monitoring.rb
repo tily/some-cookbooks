@@ -9,6 +9,8 @@ package 'snmpd' do
   action :install
 end
 
+snmpd_version = `dpkg -l snmpd`.chomp
+
 template 'snmpd.conf' do
   case node[:platform]
   when 'centos','redhat','fedora','amazon'
@@ -18,7 +20,7 @@ template 'snmpd.conf' do
   end
   source 'snmpd.conf.erb'
   action :create
-  notifies :restart => 'service[snmpd]', :delayed
+  notifies :restart, 'service[snmpd]', :delayed
 end
 
 case node[:platform]
@@ -26,7 +28,7 @@ when 'debian','ubuntu'
   template '/etc/default/snmpd' do
     source 'etc_default_snmpd.erb'
     action :create 
-    notifies :restart => 'service[snmpd]', :delayed
+    notifies :restart, 'service[snmpd]', :delayed
   end
 end
 
