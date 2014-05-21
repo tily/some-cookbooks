@@ -9,8 +9,6 @@ package 'snmpd' do
   action :install
 end
 
-snmpd_version = `dpkg -l snmpd`.chomp
-
 template '/etc/snmp/snmpd.conf' do
   source 'snmpd.conf.erb'
   action :create
