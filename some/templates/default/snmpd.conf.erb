@@ -1,18 +1,9 @@
-rocommunity niftycloud 10.100.0.14 .1.3.6.1.
-rocommunity niftycloud 10.100.8.15 .1.3.6.1.
-rocommunity niftycloud 10.100.16.13 .1.3.6.1.
-rocommunity niftycloud 10.100.32.15 .1.3.6.1.
-rocommunity niftycloud 202.248.175.141 .1.3.6.1.
-rocommunity niftycloud 10.100.48.13 .1.3.6.1.
-rocommunity niftycloud 175.184.41.60 .1.3.6.1.
-rocommunity niftycloud 10.100.64.11 .1.3.6.1.
-rocommunity niftycloud 10.100.64.12 .1.3.6.1.
-rocommunity niftycloud 202.248.45.254 .1.3.6.1.
-rocommunity niftycloud 10.100.128.14 .1.3.6.1.
-rocommunity niftycloud 10.100.144.15 .1.3.6.1.
+<% node[:snmp_servers].each do |server| %>
+rocommunity niftycloud <%= server %> .1.3.6.1.
+<% end %>
 disk / 10000
 
-<% if false # TODO: 5.4.3 以降 %>
+<% if ['debian', 'ubuntu'].include?(node[:platform]) && Gem::Version.create(`dpkg -l snmpd`.chomp) >= Gem::Version.create('5.4.3') %>
 agentAddress udp:161,udp6:[::1]:161
 <% else %>
 agentAddress udp:127.0.0.1:161
