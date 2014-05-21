@@ -3,8 +3,6 @@ rocommunity niftycloud <%= server %> .1.3.6.1.
 <% end %>
 disk / 10000
 
-<% if ['debian', 'ubuntu'].include?(node[:platform]) && Gem::Version.create(`dpkg -l snmpd`.chomp) >= Gem::Version.create('5.4.3') %>
+<% if ['debian', 'ubuntu'].include?(node[:platform]) %>
 agentAddress udp:161,udp6:[::1]:161
-<% else %>
-agentAddress udp:127.0.0.1:161
 <% end %>
